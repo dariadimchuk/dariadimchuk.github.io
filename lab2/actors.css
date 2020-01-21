@@ -1,0 +1,57 @@
+body {
+	background-color: white;
+	font-family: 'Open Sans', sans-serif;
+	padding: 40px;
+}
+
+.header, .artist-table, .header input, .artist-row{
+	border: 1px solid #e3e3e3;
+}
+.artist-row:first-child{
+	border-top: none;
+}
+
+.header{
+	width: 25rem;
+	text-align: center;
+	margin: auto;
+	padding-bottom: 1.5rem;
+}
+
+.header input{
+	width: 20rem;
+	padding: 0.5rem;
+}
+
+.artist-table{
+	border-spacing: 0;
+	margin: auto;
+	border-top: none;
+	border-collapse: collapse;
+}
+
+.name{
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+.description{
+	font-size: 0.8rem;
+}
+
+.name, .description{
+	color: #414141;
+}
+
+
+.artist-row:hover{
+	background-color: #f7f7f7;
+	cursor: pointer;
+}
+
+
+.artist-img{
+	margin: 0.2rem 1rem;
+    border: 1px solid transparent;
+	border-radius: 0.5rem;
+}
