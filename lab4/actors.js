@@ -1,6 +1,8 @@
+var id = 0;
+
 var actors = [
-    { Name: "Bella Donna", Description: "test descr", Img: "https://randomuser.me/api/portraits/med/women/1.jpg"},
-    { Name: "Ben Jer", Description: "test2", Img: "https://randomuser.me/api/portraits/med/men/1.jpg"}
+    { Id: id++, Name: "Bella Donna", Description: "test descr", Img: "https://randomuser.me/api/portraits/med/women/1.jpg"},
+    { Id: id++, Name: "Ben Jer", Description: "test2", Img: "https://randomuser.me/api/portraits/med/men/1.jpg"}
 ];
 
 function toggleInsert(){
@@ -14,19 +16,25 @@ function toggleInsert(){
 }
 
 
-function addActor()
-{
+function deleteArtist(){
+    actors = actors.filter((x) => x.Id != this.value); //remove from list
+    document.getElementById(this.value).remove(); //remove from html
+
+    //displayActors();
+}
+
+function addActor() {
     var name = document.getElementById("name").value;
     var desc = document.getElementById("description").value;
     var avatar = document.getElementById("avatar").value;
 
     var actor = {
+      Id: id++,
       Name: name,
       Description: desc,
       Img: avatar
     };
 
-    console.log(actor);
     actors.push(actor);
 
     toggleInsert(); //hides & resets form
@@ -37,10 +45,11 @@ function addActor()
 function displayActors(){
     var artistTable = document.getElementById("artist-table");
 
+
     for(var i = 0; i < actors.length; i++){
-        if(!document.getElementById(i)) { //only create element if it is not already in table
+        if(!document.getElementById(actors[i].Id)) { //only create element if it is not already in table
             var div = document.createElement("div");
-            div.setAttribute('id', i);
+            div.setAttribute('id', actors[i].Id);
             div.className += " inner-flex artist-row";
 
             var avatar = document.createElement("img");
@@ -67,6 +76,9 @@ function displayActors(){
             del.className += "delete";
             var delBtn = document.createElement("button");
             delBtn.textContent += "Delete";
+            delBtn.value = actors[i].Id;
+            delBtn.addEventListener("click", deleteArtist);
+
             del.appendChild(delBtn);
 
 
@@ -79,7 +91,7 @@ function displayActors(){
 
             artistTable.appendChild(div);
         }
-
+        id++;
     }
 }
 
