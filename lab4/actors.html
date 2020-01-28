@@ -10,40 +10,35 @@
 	<script src="actors.js"></script>
 </head>
 
-<body>
+<body onload="displayActors()">
 	
 	<div class="header">
 		<h2 id="title">Artist Directory</h2>
 		<input type="text"/>
-		<button onclick="toggleInsert()">Add artist</button>
-		<button onclick="getActorsList()">Print ALL actors</button>
+		<button class="btn" onclick="toggleInsert()">Add artist</button>
 	</div>
 
-
-	<form id="addActor">
-		<label for="name">Name:</label>
-		<input id="name" name="name" type="text" />
-		<br>
-
-		<label for="description">Description:</label>
-		<input id="description" name="description" type="text" />
-		<br>
-
-		<label for="avatar">Img URL:</label>
-		<input id="avatar" name="avatar" type="text" />
-		<br>
-		<button onclick="addActor()" type="button">Add</button>
-	</form>
-
+	<div class="add-actor-section">
+		<form id="addActor" style="display: none;">
+			<input id="name" name="name" placeholder="Artist Name" type="text" />
+			<br>
+			<input id="description" name="description" placeholder="About artist" type="text" />
+			<br>
+			<input id="avatar" name="avatar" placeholder="Image url" type="text" />
+			<br>
+			<button class="btn" onclick="addActor()" type="button">Add</button>
+		</form>
+	</div>
 
 	<div class="flex-container" id="artist-table">
-		<div class="inner-flex artist-row">
-			<img class="artist-img" src="https://randomuser.me/api/portraits/med/women/1.jpg"/>
-			<div class="details">
-				<span class="name">Bella Donna</span><br>
-				<span class="description">Academy Awards Winner 2012</span>
-			</div>
-		</div>
+
+		<!--<div class="inner-flex artist-row">-->
+			<!--<img class="artist-img" src="https://randomuser.me/api/portraits/med/women/1.jpg"/>-->
+			<!--<div class="details">-->
+				<!--<span class="actorname">Bella Donna</span><br>-->
+				<!--<span class="actordescription">Academy Awards Winner 2012</span>-->
+			<!--</div>-->
+		<!--</div>-->
 	</div>
 
 </body>

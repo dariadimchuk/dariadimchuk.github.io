@@ -22,7 +22,7 @@ body {
 }
 
 .header{
-	width: 25rem;
+	width: 30rem;
 	text-align: center;
 	margin: auto;
 	padding-bottom: 1.5rem;
@@ -33,17 +33,17 @@ body {
 	padding: 0.5rem;
 }
 
-.name{
+.actorname{
 	font-weight: bold;
 	font-size: 1rem;
 	font-family: 'Ubuntu', sans-serif;
 }
 
-.description{
+.actordescription{
 	font-size: 0.8rem;
 }
 
-.name, .description{
+.actorname, .actordescription{
 	color: #414141;
 }
 
@@ -83,9 +83,31 @@ body {
 	border-radius: 0.5rem;
 }
 
+.add-actor-section{
+    text-align: center;
+}
+
+.add-actor-section input{
+    padding: 0.5rem 4rem;
+    text-align: center;
+}
+
+.btn {
+    padding: 0.6rem 2rem;
+    background: #cecece;
+    border: 1px solid transparent;
+}
 
 
+.delete{
+    align-self: center;
+    margin: auto;
+}
 
-#addActor{
-    display: none;
+.delete button{
+    background: #f02323;
+    color: white;
+    border-radius: 10%;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
 }

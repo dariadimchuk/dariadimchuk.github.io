@@ -30,22 +30,56 @@ function addActor()
     actors.push(actor);
 
     toggleInsert(); //hides & resets form
-}
-
-
-function getActorsList(){
-    console.log(actors);
-    return actors;
+    displayActors();
 }
 
 
 function displayActors(){
-    document.getElementById("artist-table");
+    var artistTable = document.getElementById("artist-table");
 
     for(var i = 0; i < actors.length; i++){
-        var elem = document.createElement("div");
-        elem.setAttribute('id', array[i]);
-        document.body.appendchild(elem);
+        if(!document.getElementById(i)) { //only create element if it is not already in table
+            var div = document.createElement("div");
+            div.setAttribute('id', i);
+            div.className += " inner-flex artist-row";
+
+            var avatar = document.createElement("img");
+            avatar.className += " artist-img";
+            avatar.src = actors[i].Img;
+
+            var info = document.createElement("div");
+            info.className += " details";
+
+            var name = document.createElement("span");
+            name.className += " actorname";
+            name.textContent = actors[i].Name;
+            name.appendChild(document.createElement("br"));
+
+            var descr = document.createElement("span");
+            descr.className += " actordescription";
+            descr.textContent = actors[i].Description;
+
+            info.appendChild(name);
+            info.appendChild(descr);
+
+
+            var del = document.createElement("div");
+            del.className += "delete";
+            var delBtn = document.createElement("button");
+            delBtn.textContent += "Delete";
+            del.appendChild(delBtn);
+
+
+            div.appendChild(avatar);
+            div.appendChild(info);
+
+
+
+            div.appendChild(del);
+
+            artistTable.appendChild(div);
+        }
+
     }
 }
 
