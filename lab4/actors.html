@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Artist Directory
+    </title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="actors.css">
+	<script src="actors.js"></script>
+</head>
+
+<body>
+	
+	<div class="header">
+		<h2 id="title">Artist Directory</h2>
+		<input type="text"/>
+		<button onclick="toggleInsert()">Add artist</button>
+		<button onclick="getActorsList()">Print ALL actors</button>
+	</div>
+
+
+	<form id="addActor">
+		<label for="name">Name:</label>
+		<input id="name" name="name" type="text" />
+		<br>
+
+		<label for="description">Description:</label>
+		<input id="description" name="description" type="text" />
+		<br>
+
+		<label for="avatar">Img URL:</label>
+		<input id="avatar" name="avatar" type="text" />
+		<br>
+		<button onclick="addActor()" type="button">Add</button>
+	</form>
+
+
+	<div class="flex-container" id="artist-table">
+		<div class="inner-flex artist-row">
+			<img class="artist-img" src="https://randomuser.me/api/portraits/med/women/1.jpg"/>
+			<div class="details">
+				<span class="name">Bella Donna</span><br>
+				<span class="description">Academy Awards Winner 2012</span>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
