@@ -8,7 +8,7 @@
 
 .flex-container{
 	flex-direction: column;
-	width: 20rem;
+	width: 25rem;
 }
 
 
@@ -22,7 +22,7 @@ body {
 }
 
 .header{
-	width: 25rem;
+	width: 30rem;
 	text-align: center;
 	margin: auto;
 	padding-bottom: 1.5rem;
@@ -33,17 +33,17 @@ body {
 	padding: 0.5rem;
 }
 
-.name{
+.actorname{
 	font-weight: bold;
 	font-size: 1rem;
 	font-family: 'Ubuntu', sans-serif;
 }
 
-.description{
+.actordescription{
 	font-size: 0.8rem;
 }
 
-.name, .description{
+.actorname, .actordescription{
 	color: #414141;
 }
 
@@ -58,7 +58,7 @@ body {
 /* 	---- BORDERS ---- */
 
 
-.header, .artist-table, .header input{
+.header, #artist-table, .header input{
 	border: 1px solid #e3e3e3;
 }
 
@@ -69,10 +69,9 @@ body {
 	border-bottom: none;
 }
 
-.artist-table{
+#artist-table{
 	border-spacing: 0;
 	margin: auto;
-	border-top: none;
 	border-collapse: collapse;
 }
 
@@ -81,5 +80,42 @@ body {
 	margin: 0.2rem 1rem;
 	border: 1px solid transparent;
 	border-radius: 0.5rem;
+
+    width: 4rem;
 }
 
+.details{
+    width: 10rem;
+}
+
+.add-actor-section{
+    text-align: center;
+    margin-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.add-actor-section input{
+    padding: 0.5rem 4rem;
+    text-align: center;
+}
+
+.btn {
+    padding: 0.6rem 2rem;
+    background: #cecece;
+    border: 1px solid transparent;
+}
+
+
+.delete{
+    align-self: center;
+    margin: auto;
+    width: 3rem;
+}
+
+.delete button{
+    background: #f02323;
+    color: white;
+    border-radius: 10%;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+}
