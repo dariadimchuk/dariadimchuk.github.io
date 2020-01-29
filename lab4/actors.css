@@ -8,7 +8,7 @@
 
 .flex-container{
 	flex-direction: column;
-	width: 20rem;
+	width: 25rem;
 }
 
 
@@ -81,6 +81,12 @@ body {
 	margin: 0.2rem 1rem;
 	border: 1px solid transparent;
 	border-radius: 0.5rem;
+
+    width: 4rem;
+}
+
+.details{
+    width: 10rem;
 }
 
 .add-actor-section{
@@ -102,6 +108,7 @@ body {
 .delete{
     align-self: center;
     margin: auto;
+    width: 3rem;
 }
 
 .delete button{
