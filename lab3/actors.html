@@ -19,26 +19,22 @@
 	</div>
 
 	<div class="add-actor-section">
+		<span id="add-actor-error" style="display: none;">Error: Artist name and description must be < 40 characters.</span>
+
 		<form id="addActor" style="display: none;">
-			<input id="name" name="name" placeholder="Artist Name" type="text" />
+			<input id="name" name="name" placeholder="Artist Name" type="text" required />
 			<br>
-			<input id="description" name="description" placeholder="About artist" type="text" />
+			<input id="description" name="description" placeholder="About artist" type="text" required />
 			<br>
-			<input id="avatar" name="avatar" placeholder="Image url" type="text" />
+			<input id="avatar" name="avatar" placeholder="Image url" type="text" required />
 			<br>
-			<button class="btn" onclick="addActor()" type="button">Add</button>
+			<button id="addActorBtn" class="btn" onclick="addActor()">Add</button>
 		</form>
 	</div>
 
-	<div class="flex-container" id="artist-table">
 
-		<!--<div class="inner-flex artist-row">-->
-			<!--<img class="artist-img" src="https://randomuser.me/api/portraits/med/women/1.jpg"/>-->
-			<!--<div class="details">-->
-				<!--<span class="actorname">Bella Donna</span><br>-->
-				<!--<span class="actordescription">Academy Awards Winner 2012</span>-->
-			<!--</div>-->
-		<!--</div>-->
+	<div class="flex-container" id="artist-table">
+		<!-- dynamically filled -->
 	</div>
 
 </body>
