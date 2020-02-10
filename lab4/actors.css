@@ -2,7 +2,7 @@
 /* ----FLEXBOX---- */
 
 
-.flex-container, .actor-flex-1 {
+.flex-container, .actor-flex-1, #empty-table {
 	display: flex;
 }
 
@@ -56,7 +56,7 @@ body {
 /* 	---- BORDERS ---- */
 
 
-.header, #artist-table, .header input{
+.header, #artist-table, .header input, #empty-table{
 	border: 1px solid #e3e3e3;
 }
 
@@ -120,4 +120,10 @@ body {
 
 #add-actor-error{
 	color: red;
+}
+
+#empty-table span {
+	text-align: center;
+	margin: auto;
+	padding: 3rem;
 }

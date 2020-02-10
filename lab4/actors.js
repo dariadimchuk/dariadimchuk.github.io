@@ -37,6 +37,15 @@ function toggleInsert(){
     }
 }
 
+function showNoArtistsFoundMsg(...list){
+    var emptyTbl = document.getElementById("empty-table");
+    if(list.length === 0){
+        emptyTbl.style.display = "flex";
+    } else{
+        emptyTbl.style.display = "none";
+    }
+}
+
 function search(){
     var input = document.getElementById("search-input").value;
 
@@ -55,6 +64,8 @@ function deleteArtist(){
     actors = actors.filter((x) => x.Id != this.value); //remove from list
     document.getElementById(this.value).remove(); //remove from html
     updateLocalStorage();
+
+    showNoArtistsFoundMsg(...actors);
 }
 
 
@@ -136,9 +147,10 @@ function displayActors(...list){
         actor_div.appendChild(del);
         actor_list_tbl.appendChild(actor_div);
 
-
         id++;
     }
+
+    showNoArtistsFoundMsg(...list);
 }
 
 
