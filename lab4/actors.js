@@ -1,18 +1,22 @@
 var id = 0;
 
-var actors = [
-    {
-        Id: id++,
-        Name: "Bella Donna",
-        Description: "Singer",
-        AvatarImg: "https://randomuser.me/api/portraits/med/women/1.jpg"
-    },
-    {
-        Id: id++,
-        Name: "Ben Jaskier",
-        Description: "Award Winner",
-        AvatarImg: "https://randomuser.me/api/portraits/med/men/1.jpg"
+class Actor{
+    Id;
+    Name;
+    Description;
+    AvatarImg;
+
+    constructor(id, name, descr, avatar){
+        this.Id = id;
+        this.Name = name;
+        this.Description = descr;
+        this.AvatarImg = avatar;
     }
+}
+
+var actors = [
+    new Actor(id++, "Bella Donna", "Singer", "https://randomuser.me/api/portraits/med/women/1.jpg"),
+    new Actor(id++, "Ben Jaskier", "Award Winner", "https://randomuser.me/api/portraits/med/men/1.jpg")
 ];
 
 function toggleInsert(){
@@ -25,6 +29,19 @@ function toggleInsert(){
         x.style.display = "none";
         x.reset();
     }
+}
+
+function search(){
+    var input = document.getElementById("search-input").value;
+
+    if(input.length == 0){
+        displayActors(...actors);
+    } else{
+        input = input.toLowerCase(); //normalize
+        var filteredActors = actors.filter(x => x.Name.toLowerCase().includes(input));
+        displayActors(...filteredActors);
+    }
+
 }
 
 
@@ -56,39 +73,36 @@ function addActor() {
     //no errors detected
     err.style.display = 'none';
 
-    var actor = {
-        Id: id++,
-        Name: name,
-        Description: desc,
-        AvatarImg: avatar
-    };
+    var actor = new Actor(id++, name, desc, avatar);
 
     actors.push(actor); //updates in memory list
     toggleInsert(); //hides & resets form
-    displayActors(); //refreshes list
+    displayActors(...actors); //refreshes list
 }
 
 
-function displayActors(){
+function displayActors(...list){
     var actor_list_tbl = document.getElementById("artist-table");
+    actor_list_tbl.innerHTML  = "";
 
-    for(var i = 0; i < actors.length; i++){
-        if(document.getElementById(actors[i].Id)){ //skip if duplicate
-            continue;
-        }
+    for(var i = 0; i < list.length; i++){
+
+        // if(document.getElementById(list[i].Id)){ //skip if duplicate
+        //     continue;
+        // }
 
         var actor_div = document.createElement("div");
-        actor_div.setAttribute('id', actors[i].Id);
+        actor_div.setAttribute('id', list[i].Id);
         actor_div.className += " actor-flex-1 actor-element";
 
         var avatarImg = document.createElement("img");
         avatarImg.className += " actor-avatar";
-        avatarImg.src = actors[i].AvatarImg;
+        avatarImg.src = list[i].AvatarImg;
 
 
         var actor_name = document.createElement("span");
         actor_name.className += " actor_name";
-        actor_name.textContent = actors[i].Name;
+        actor_name.textContent = list[i].Name;
         actor_name.appendChild(document.createElement("br"));
 
 
@@ -97,7 +111,7 @@ function displayActors(){
 
         var actor_descr = document.createElement("span");
         actor_descr.className += " desc_of_actor";
-        actor_descr.textContent = actors[i].Description;
+        actor_descr.textContent = list[i].Description;
 
         //must append in such an order
         actor_details.appendChild(actor_name);
@@ -107,7 +121,7 @@ function displayActors(){
         del.className += "delete";
         var delBtn = document.createElement("button");
         delBtn.textContent += "Delete";
-        delBtn.value = actors[i].Id;
+        delBtn.value = list[i].Id;
         delBtn.addEventListener("click", deleteArtist);
         del.appendChild(delBtn);
 

@@ -10,12 +10,13 @@
 	<script src="actors.js"></script>
 </head>
 
-<body onload="displayActors()">
+<body onload="displayActors(...actors)">
 	
 	<div class="header">
 		<h2 id="title">Artist Directory</h2>
-		<input type="text"/>
-		<button class="btn" onclick="toggleInsert()">Add artist</button>
+		<input id="search-input" type="text"/>
+		<button class="btn" onclick="toggleInsert()">Add</button>
+		<button class="btn" onclick="search()">Search</button>
 	</div>
 
 	<div class="add-actor-section">
