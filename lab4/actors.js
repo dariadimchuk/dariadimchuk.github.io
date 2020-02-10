@@ -14,10 +14,16 @@ class Actor{
     }
 }
 
-var actors = [
-    new Actor(id++, "Bella Donna", "Singer", "https://randomuser.me/api/portraits/med/women/1.jpg"),
-    new Actor(id++, "Ben Jaskier", "Award Winner", "https://randomuser.me/api/portraits/med/men/1.jpg")
-];
+var actors = [];
+
+function loadPage(){
+    actors = JSON.parse(localStorage.getItem("actors")) || [];
+    displayActors(...actors);
+}
+
+function updateLocalStorage(){
+    localStorage.setItem("actors", JSON.stringify(actors)); //overwrite every time user adds new one
+}
 
 function toggleInsert(){
     var x = document.getElementById("addActor");
@@ -48,6 +54,7 @@ function search(){
 function deleteArtist(){
     actors = actors.filter((x) => x.Id != this.value); //remove from list
     document.getElementById(this.value).remove(); //remove from html
+    updateLocalStorage();
 }
 
 
@@ -76,6 +83,8 @@ function addActor() {
     var actor = new Actor(id++, name, desc, avatar);
 
     actors.push(actor); //updates in memory list
+    updateLocalStorage();
+
     toggleInsert(); //hides & resets form
     displayActors(...actors); //refreshes list
 }
@@ -86,10 +95,6 @@ function displayActors(...list){
     actor_list_tbl.innerHTML  = "";
 
     for(var i = 0; i < list.length; i++){
-
-        // if(document.getElementById(list[i].Id)){ //skip if duplicate
-        //     continue;
-        // }
 
         var actor_div = document.createElement("div");
         actor_div.setAttribute('id', list[i].Id);
@@ -135,4 +140,22 @@ function displayActors(...list){
         id++;
     }
 }
+
+
+// TODO for later?
+// function generateAvatarImg(){
+//     var femUrl = "https://randomuser.me/api/portraits/med/women/";
+//     var maleUrl = "https://randomuser.me/api/portraits/med/men/";
+//
+//     var extension = ".jpg";
+//
+//     var index = Math.floor(Math.random() * 99); //between 0 and 99
+//
+//     var chosenUrl = Math.random() < 0.5 ? femUrl : maleUrl;
+//     var generatedAvatarUrl = chosenUrl + index + extension;
+//
+//     var avatarInput = document.getElementById("avatar");
+//     avatarInput.value = generatedAvatarUrl;
+//
+// }
 

@@ -11,8 +11,6 @@
 	width: 25rem;
 }
 
-
-
 /*  ----	GENERAL CSS (styles, fonts, colours, etc) ----  */
 
 body {
@@ -22,7 +20,7 @@ body {
 }
 
 .header{
-	width: 30rem;
+	max-width: 35rem;
 	text-align: center;
 	margin: auto;
 	padding-bottom: 1.5rem;
@@ -75,7 +73,6 @@ body {
 	border-collapse: collapse;
 }
 
-
 .actor-avatar{
 	margin: 0.2rem 1rem;
 	border: 1px solid transparent;
@@ -103,6 +100,7 @@ body {
     padding: 0.6rem 2rem;
     background: #cecece;
     border: 1px solid transparent;
+	cursor: pointer;
 }
 
 
