@@ -107,7 +107,10 @@ function addActor() {
 
 function displayActors(...list){
     var actor_list_tbl = document.getElementById("artist-table");
-    actor_list_tbl.innerHTML  = "";
+
+    while(actor_list_tbl.hasChildNodes()){
+        actor_list_tbl.removeChild(actor_list_tbl.firstChild);
+    }
 
     for(var i = 0; i < list.length; i++){
 
