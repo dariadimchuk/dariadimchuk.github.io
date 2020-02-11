@@ -1,4 +1,4 @@
-var id = 0;
+var id = generateNewId();
 
 class Actor{
     Id;
@@ -23,6 +23,10 @@ function loadPage(){
 
 function updateLocalStorage(){
     localStorage.setItem("actors", JSON.stringify(actors)); //overwrite every time user adds new one
+}
+
+function generateNewId(){
+    return new Date();
 }
 
 function toggleInsert(){
@@ -91,7 +95,7 @@ function addActor() {
     //no errors detected
     err.style.display = 'none';
 
-    var actor = new Actor(id++, name, desc, avatar);
+    var actor = new Actor(generateNewId(), name, desc, avatar);
 
     actors.push(actor); //updates in memory list
     updateLocalStorage();
