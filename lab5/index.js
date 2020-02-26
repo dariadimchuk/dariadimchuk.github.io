@@ -7,7 +7,9 @@ const fs = require('fs');
 const path = require('path');
 
 
-app.listen(3000, () => console.log('Server ready')) //this is the port to listen to
+//app.listen(3000, () => console.log('Server ready')) //this is the port to listen to
+app.listen(process.env.PORT || 3000);
+
 
 app.use(bodyparser.urlencoded({extended: false}));
 app.use(bodyparser.json());
