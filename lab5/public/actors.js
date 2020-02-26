@@ -16,9 +16,16 @@ class Actor{
 
 var actors = [];
 
-function loadPage(){
-    actors = JSON.parse(localStorage.getItem("actors")) || [];
-    displayActors(...actors);
+async function loadPage(){
+	var test;
+	
+	
+	const response = await fetch('/getall');
+	const data = await response.json();
+	console.log(data); 
+	
+	//actors = JSON.parse(localStorage.getItem("actors")) || [];
+	displayActors(...actors);
 }
 
 function updateLocalStorage(){

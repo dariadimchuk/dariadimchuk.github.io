@@ -1,5 +1,6 @@
 let express = require('express');  
 let app = express();
+var http = require('http');
 let bodyparser = require('body-parser');
 
 const fs = require('fs');
@@ -9,12 +10,14 @@ const path = require('path');
 app.listen(3000, () => console.log('Server ready')) //this is the port to listen to
 
 
-
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
 
 app.use(express.static(path.join(__dirname, "public")));
 
+
+
+let actors = [];
 
 
 //custom middleware
@@ -24,24 +27,40 @@ app.use((req,res,next) => {
 });
 
 
-//calls our custom middleware
-// app.get('/foo', (req, res) => {
-// 	res.send(????);
-// });
-
-
-
-
 app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, "actors.html"));
 });
 
 
+app.get('/getall', (req, res) => {
+	var json = JSON.stringify(actors);
+	console.log(json);
+	
+	//res.send(json);
+	
+	res.setHeader('Content-Type', 'application/json');
+    res.end(json);
+});
 
-app.post('/message', (req, res) => {
-	let info = req.body.info;
-	console.log(info);
-	res.send(info);
+
+
+app.post('/', (req, res) => {
+	let name = req.body.name;
+	let descr = req.body.description;
+	let avatar = req.body.avatar;
+	
+	actors.push({name, descr, avatar});
+	
+	//let str = "name: " + name + " " + "\ndescription: " + descr + "\nurl: " + avatar;
+	//console.log(str);
+	
+	/*
+	for(let i = 0; i < actors.length; i++){
+		console.log("Actor " + i + ": " + actors[i].name);
+	}
+	*/
+	
+	res.sendStatus(204);
 });
 
 
