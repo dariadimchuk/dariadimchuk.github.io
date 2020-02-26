@@ -1,5 +1,3 @@
-var id = generateNewId();
-
 class Actor{
     id;
     name;
@@ -27,8 +25,6 @@ async function loadActorsFromNode(){
 
 async function loadPage(){
 	await loadActorsFromNode();
-
-	//actors = JSON.parse(localStorage.getItem("actors")) || [];
 	displayActors(...actors);
 }
 
@@ -36,9 +32,6 @@ function updateLocalStorage(){
     localStorage.setItem("actors", JSON.stringify(actors)); //overwrite every time user adds new one
 }
 
-function generateNewId(){
-    return new Date();
-}
 
 function toggleInsert(){
     var x = document.getElementById("addActor");
@@ -85,7 +78,7 @@ function deleteArtist(){
 }
 
 
-function addActor() {
+async function addActor() {
     var name = document.getElementById("name").value;
     var desc = document.getElementById("description").value;
     var avatar = document.getElementById("avatar").value;
@@ -107,10 +100,15 @@ function addActor() {
     //no errors detected
     err.style.display = 'none';
 
-    var actor = new Actor(generateNewId(), name, desc, avatar);
+    var params = JSON.stringify({ name: name, desc: desc, url: avatar });
 
-    actors.push(actor); //updates in memory list
-    updateLocalStorage();
+    await fetch("/add", {
+        method: "POST",
+        body: params,
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    await loadActorsFromNode();
 
     toggleInsert(); //hides & resets form
     displayActors(...actors); //refreshes list
@@ -160,20 +158,16 @@ function displayActors(...list){
         delBtn.addEventListener("click", deleteArtist);
         del.appendChild(delBtn);
 
-
         actor_div.appendChild(avatarImg);
         actor_div.appendChild(actor_details);
         actor_div.appendChild(del);
         actor_list_tbl.appendChild(actor_div);
-
-        id++;
     }
 
     showNoArtistsFoundMsg(...list);
 }
 
 
-// TODO for later?
  function generateAvatarImg(){
      var femUrl = "https://randomuser.me/api/portraits/med/women/";
      var maleUrl = "https://randomuser.me/api/portraits/med/men/";

@@ -46,21 +46,15 @@ app.get('/getall', (req, res) => {
 
 app.post('/add', (req, res) => {
 	let name = req.body.name;
-	let description = req.body.description;
-	let avatarImg = req.body.avatar;
+	let description = req.body.desc;
+	let avatarImg = req.body.url;
 
+	//increment id
 	id += 1;
+
+	//save to "db"
 	actors.push({id, name, description, avatarImg});
-	
-	//let str = "name: " + name + " " + "\ndescription: " + descr + "\nurl: " + avatar;
-	//console.log(str);
-	
-	/*
-	for(let i = 0; i < actors.length; i++){
-		console.log("Actor " + i + ": " + actors[i].name);
-	}
-	*/
-	
+
 	res.sendStatus(204);
 });
 
