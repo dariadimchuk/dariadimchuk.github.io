@@ -34,11 +34,19 @@ app.get('/', (req, res) => {
 
 app.get('/getall', (req, res) => {
 	var json = JSON.stringify(actors);
-	console.log(json);
-	
-	//res.send(json);
-	
+
 	res.setHeader('Content-Type', 'application/json');
+    res.end(json);
+});
+
+
+app.get('/search/:value', (req, res) => {
+    let name = req.params.value;
+
+    var filteredActors = actors.filter(x => x.name.includes(name));
+
+    var json = JSON.stringify(filteredActors);
+    res.setHeader('Content-Type', 'application/json');
     res.end(json);
 });
 

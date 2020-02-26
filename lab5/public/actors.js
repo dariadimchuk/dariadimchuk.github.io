@@ -15,14 +15,23 @@ class Actor{
 var actors = [];
 
 
-async function loadActorsFromNode(){
-    const response = await fetch('/getall');
-    actors = await response.json();
+async function loadActors(search = ""){
+    if(search.length > 0){
+        const response = await fetch("/search/" + search, {
+            method: "GET",
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        actors = await response.json();
+    } else {
+        const response = await fetch('/getall');
+        actors = await response.json();
+    }
 }
 
 async function loadPage(){
-	await loadActorsFromNode();
-	displayActors(...actors);
+	await loadActors();
+	displayActors();
 }
 
 
@@ -39,26 +48,21 @@ function toggleInsert(){
     }
 }
 
-function showNoArtistsFoundMsg(...list){
+function showNoArtistsFoundMsg(){
     var emptyTbl = document.getElementById("empty-table");
-    if(list.length === 0){
+    if(actors.length === 0){
         emptyTbl.style.display = "flex";
     } else{
         emptyTbl.style.display = "none";
     }
 }
 
-function search(){
+async function search(){
     var input = document.getElementById("search-input").value;
+    input = input.toLowerCase();
 
-    if(input.length == 0){
-        displayActors(...actors);
-    } else{
-        input = input.toLowerCase(); //normalize
-        var filteredActors = actors.filter(x => x.name.toLowerCase().includes(input));
-        displayActors(...filteredActors);
-    }
-
+    await loadActors(input);
+    displayActors();
 }
 
 
@@ -73,7 +77,7 @@ async function deleteArtist(){
     });
 
     await loadPage();
-    showNoArtistsFoundMsg(...actors);
+    showNoArtistsFoundMsg();
 }
 
 
@@ -107,34 +111,33 @@ async function addActor() {
         headers: { 'Content-Type': 'application/json' }
     });
 
-    await loadActorsFromNode();
+    await loadActors();
 
     toggleInsert(); //hides & resets form
-    displayActors(...actors); //refreshes list
+    displayActors(); //refreshes list
 }
 
 
-function displayActors(...list){
+function displayActors(){
     var actor_list_tbl = document.getElementById("artist-table");
 
     while(actor_list_tbl.hasChildNodes()){
         actor_list_tbl.removeChild(actor_list_tbl.firstChild);
     }
 
-    for(var i = 0; i < list.length; i++){
-
+    for(var i = 0; i < actors.length; i++){
         var actor_div = document.createElement("div");
-        actor_div.setAttribute('id', list[i].id);
+        actor_div.setAttribute('id', actors[i].id);
         actor_div.className += " actor-flex-1 actor-element";
 
         var avatarImg = document.createElement("img");
         avatarImg.className += " actor-avatar";
-        avatarImg.src = list[i].avatarImg;
+        avatarImg.src = actors[i].avatarImg;
 
 
         var actor_name = document.createElement("span");
         actor_name.className += " actor_name";
-        actor_name.textContent = list[i].name;
+        actor_name.textContent = actors[i].name;
         actor_name.appendChild(document.createElement("br"));
 
 
@@ -143,7 +146,7 @@ function displayActors(...list){
 
         var actor_descr = document.createElement("span");
         actor_descr.className += " desc_of_actor";
-        actor_descr.textContent = list[i].description;
+        actor_descr.textContent = actors[i].description;
 
         //must append in such an order
         actor_details.appendChild(actor_name);
@@ -153,7 +156,7 @@ function displayActors(...list){
         del.className += "delete";
         var delBtn = document.createElement("button");
         delBtn.textContent += "Delete";
-        delBtn.value = list[i].id;
+        delBtn.value = actors[i].id;
         delBtn.addEventListener("click", deleteArtist);
         del.appendChild(delBtn);
 
@@ -163,7 +166,7 @@ function displayActors(...list){
         actor_list_tbl.appendChild(actor_div);
     }
 
-    showNoArtistsFoundMsg(...list);
+    showNoArtistsFoundMsg();
 }
 
 
