@@ -1,29 +1,27 @@
 var id = generateNewId();
 
 class Actor{
-    Id;
+    id;
     Name;
     Description;
     AvatarImg;
 
     constructor(id, name, descr, avatar){
-        this.Id = id;
-        this.Name = name;
-        this.Description = descr;
-        this.AvatarImg = avatar;
+        this.id = id;
+        this.name = name;
+        this.description = descr;
+        this.avatarImg = avatar;
     }
 }
 
 var actors = [];
 
 async function loadPage(){
-	var test;
-	
-	
 	const response = await fetch('/getall');
 	const data = await response.json();
 	console.log(data); 
 	
+	actors = data;
 	//actors = JSON.parse(localStorage.getItem("actors")) || [];
 	displayActors(...actors);
 }
@@ -72,7 +70,7 @@ function search(){
 
 
 function deleteArtist(){
-    actors = actors.filter((x) => x.Id != this.value); //remove from list
+    actors = actors.filter((x) => x.id != this.value); //remove from list
     document.getElementById(this.value).remove(); //remove from html
     updateLocalStorage();
 
@@ -88,13 +86,13 @@ function addActor() {
     var err = document.getElementById("add-actor-error");
 
     if(name.length == 0 || desc.length == 0 || avatar.length == 0){
-        err.innerText = "Error: Name, Description and Image url are required fields.";
+        err.innerText = "Error: name, description and Image url are required fields.";
         err.style.display = 'block';
         return false;
     }
 
     if(name.length > 40 || desc.length > 40){
-        err.innerText = "Error: Name and Description must be < 40 characters.";
+        err.innerText = "Error: name and description must be < 40 characters.";
         err.style.display = 'block';
         return false;
     }
@@ -122,12 +120,12 @@ function displayActors(...list){
     for(var i = 0; i < list.length; i++){
 
         var actor_div = document.createElement("div");
-        actor_div.setAttribute('id', list[i].Id);
+        actor_div.setAttribute('id', list[i].id);
         actor_div.className += " actor-flex-1 actor-element";
 
         var avatarImg = document.createElement("img");
         avatarImg.className += " actor-avatar";
-        avatarImg.src = list[i].AvatarImg;
+        avatarImg.src = list[i].avatarImg;
 
 
         var actor_name = document.createElement("span");
@@ -141,7 +139,7 @@ function displayActors(...list){
 
         var actor_descr = document.createElement("span");
         actor_descr.className += " desc_of_actor";
-        actor_descr.textContent = list[i].Description;
+        actor_descr.textContent = list[i].description;
 
         //must append in such an order
         actor_details.appendChild(actor_name);
@@ -151,7 +149,7 @@ function displayActors(...list){
         del.className += "delete";
         var delBtn = document.createElement("button");
         delBtn.textContent += "Delete";
-        delBtn.value = list[i].Id;
+        delBtn.value = list[i].id;
         delBtn.addEventListener("click", deleteArtist);
         del.appendChild(delBtn);
 
