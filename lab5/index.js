@@ -44,7 +44,7 @@ app.get('/getall', (req, res) => {
 
 
 
-app.post('/', (req, res) => {
+app.post('/add', (req, res) => {
 	let name = req.body.name;
 	let description = req.body.description;
 	let avatarImg = req.body.avatar;

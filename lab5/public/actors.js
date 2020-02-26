@@ -2,9 +2,9 @@ var id = generateNewId();
 
 class Actor{
     id;
-    Name;
-    Description;
-    AvatarImg;
+    name;
+    description;
+    avatarImg;
 
     constructor(id, name, descr, avatar){
         this.id = id;
@@ -16,12 +16,18 @@ class Actor{
 
 var actors = [];
 
+
+async function loadActorsFromNode(){
+    const response = await fetch('/getall');
+    const data = await response.json();
+    console.log(data);
+
+    actors = data;
+}
+
 async function loadPage(){
-	const response = await fetch('/getall');
-	const data = await response.json();
-	console.log(data); 
-	
-	actors = data;
+	await loadActorsFromNode();
+
 	//actors = JSON.parse(localStorage.getItem("actors")) || [];
 	displayActors(...actors);
 }
@@ -40,6 +46,7 @@ function toggleInsert(){
 
     if (x.style.display === "none") {
         x.style.display = "block";
+        generateAvatarImg();
     } else {
         x.style.display = "none";
         x.reset();
@@ -167,19 +174,18 @@ function displayActors(...list){
 
 
 // TODO for later?
-// function generateAvatarImg(){
-//     var femUrl = "https://randomuser.me/api/portraits/med/women/";
-//     var maleUrl = "https://randomuser.me/api/portraits/med/men/";
-//
-//     var extension = ".jpg";
-//
-//     var index = Math.floor(Math.random() * 99); //between 0 and 99
-//
-//     var chosenUrl = Math.random() < 0.5 ? femUrl : maleUrl;
-//     var generatedAvatarUrl = chosenUrl + index + extension;
-//
-//     var avatarInput = document.getElementById("avatar");
-//     avatarInput.value = generatedAvatarUrl;
-//
-// }
+ function generateAvatarImg(){
+     var femUrl = "https://randomuser.me/api/portraits/med/women/";
+     var maleUrl = "https://randomuser.me/api/portraits/med/men/";
+
+     var extension = ".jpg";
+
+     var index = Math.floor(Math.random() * 99); //between 0 and 99
+
+     var chosenUrl = Math.random() < 0.5 ? femUrl : maleUrl;
+     var generatedAvatarUrl = chosenUrl + index + extension;
+
+     var avatarInput = document.getElementById("avatar");
+     avatarInput.value = generatedAvatarUrl;
+ }
 
