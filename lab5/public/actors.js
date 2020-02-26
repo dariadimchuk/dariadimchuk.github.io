@@ -15,6 +15,12 @@ class Actor {
 var actors = [];
 
 
+/**
+ * Either loads all actors from backend "db", or searching for specifically named actors.
+ *
+ * @param search (optional) - if added, will search for actors whose name matches/contains the search
+ * @returns {Promise<void>}
+ */
 async function loadActors(search = "") {
     if (search.length > 0) {
         const response = await fetch("/search/" + search, {
@@ -29,34 +35,21 @@ async function loadActors(search = "") {
     }
 }
 
+
+/**
+ * Load page by getting actors from backend, and displaying them
+ * @returns {Promise<void>}
+ */
 async function loadPage() {
     await loadActors();
     displayActors();
 }
 
 
-function toggleInsert() {
-    var x = document.getElementById("addActor");
-    document.getElementById("add-actor-error").style.display = 'none';
-
-    if (x.style.display === "none") {
-        x.style.display = "block";
-        generateAvatarImg(); //TODO this is for easier actor creation
-    } else {
-        x.style.display = "none";
-        x.reset();
-    }
-}
-
-function showNoArtistsFoundMsg() {
-    var emptyTbl = document.getElementById("empty-table");
-    if (actors.length === 0) {
-        emptyTbl.style.display = "flex";
-    } else {
-        emptyTbl.style.display = "none";
-    }
-}
-
+/**
+ * Search for specific actors by input name
+ * @returns {Promise<void>}
+ */
 async function search() {
     var input = document.getElementById("search-input").value.toLowerCase();
 
@@ -65,6 +58,10 @@ async function search() {
 }
 
 
+/**
+ * Delete chosen actor
+ * @returns {Promise<void>}
+ */
 async function deleteArtist() {
     var id = document.getElementById(this.value).id;
     var params = JSON.stringify({idToDelete: id});
@@ -80,6 +77,10 @@ async function deleteArtist() {
 }
 
 
+/**
+ * Add new actor
+ * @returns {Promise<boolean>}
+ */
 async function addActor() {
     var name = document.getElementById("name").value;
     var desc = document.getElementById("description").value;
@@ -117,6 +118,9 @@ async function addActor() {
 }
 
 
+/**
+ * Fills the html and displays all actors.
+ */
 function displayActors() {
     var actor_list_tbl = document.getElementById("artist-table");
 
@@ -169,6 +173,41 @@ function displayActors() {
 }
 
 
+/**
+ * Toggles the "Add Actor" div to be hidden/visible
+ * */
+function toggleInsert() {
+    var x = document.getElementById("addActor");
+    document.getElementById("add-actor-error").style.display = 'none';
+
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        generateAvatarImg(); //TODO this is for easier actor creation
+    } else {
+        x.style.display = "none";
+        x.reset();
+    }
+}
+
+
+/**
+ * If there are no actors in the array, will show "Empty" message.
+ * Otherwise shows the actors.
+ */
+function showNoArtistsFoundMsg() {
+    var emptyTbl = document.getElementById("empty-table");
+    if (actors.length === 0) {
+        emptyTbl.style.display = "flex";
+    } else {
+        emptyTbl.style.display = "none";
+    }
+}
+
+
+/**
+ * Auto generates a random female or male avatar image.
+ * This is just for easier test purposes.
+ */
 function generateAvatarImg() {
     var femUrl = "https://randomuser.me/api/portraits/med/women/";
     var maleUrl = "https://randomuser.me/api/portraits/med/men/";
