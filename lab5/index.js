@@ -59,6 +59,17 @@ app.post('/add', (req, res) => {
 });
 
 
+app.post('/delete', (req, res) => {
+    let id = req.body.idToDelete;
+
+    //save to "db"
+    actors = actors.filter(x => x.id != id);
+
+    res.sendStatus(204);
+});
+
+
+
 
 /*
 fs.writeFile("/save/file", (req,res) => {

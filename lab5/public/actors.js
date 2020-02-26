@@ -17,19 +17,12 @@ var actors = [];
 
 async function loadActorsFromNode(){
     const response = await fetch('/getall');
-    const data = await response.json();
-    console.log(data);
-
-    actors = data;
+    actors = await response.json();
 }
 
 async function loadPage(){
 	await loadActorsFromNode();
 	displayActors(...actors);
-}
-
-function updateLocalStorage(){
-    localStorage.setItem("actors", JSON.stringify(actors)); //overwrite every time user adds new one
 }
 
 
@@ -69,11 +62,17 @@ function search(){
 }
 
 
-function deleteArtist(){
-    actors = actors.filter((x) => x.id != this.value); //remove from list
-    document.getElementById(this.value).remove(); //remove from html
-    updateLocalStorage();
+async function deleteArtist(){
+    var id = document.getElementById(this.value).id;
+    var params = JSON.stringify({idToDelete: id});
 
+    await fetch("/delete", {
+        method: "POST",
+        body: params,
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    await loadPage();
     showNoArtistsFoundMsg(...actors);
 }
 
