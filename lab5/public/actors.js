@@ -62,7 +62,7 @@ function search(){
         displayActors(...actors);
     } else{
         input = input.toLowerCase(); //normalize
-        var filteredActors = actors.filter(x => x.Name.toLowerCase().includes(input));
+        var filteredActors = actors.filter(x => x.name.toLowerCase().includes(input));
         displayActors(...filteredActors);
     }
 
@@ -130,7 +130,7 @@ function displayActors(...list){
 
         var actor_name = document.createElement("span");
         actor_name.className += " actor_name";
-        actor_name.textContent = list[i].Name;
+        actor_name.textContent = list[i].name;
         actor_name.appendChild(document.createElement("br"));
 
 

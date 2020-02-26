@@ -16,7 +16,7 @@ app.use(bodyparser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 
-
+let id = 0;
 let actors = [];
 
 
@@ -46,10 +46,11 @@ app.get('/getall', (req, res) => {
 
 app.post('/', (req, res) => {
 	let name = req.body.name;
-	let descr = req.body.description;
-	let avatar = req.body.avatar;
-	
-	actors.push({name, descr, avatar});
+	let description = req.body.description;
+	let avatarImg = req.body.avatar;
+
+	id += 1;
+	actors.push({id, name, description, avatarImg});
 	
 	//let str = "name: " + name + " " + "\ndescription: " + descr + "\nurl: " + avatar;
 	//console.log(str);
