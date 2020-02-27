@@ -33,7 +33,7 @@ app.get('/getall', (req, res) => {
 app.get('/search/:value', (req, res) => {
     let name = req.params.value;
 
-    var filteredActors = actors.filter(x => x.name.includes(name));
+    var filteredActors = actors.filter(x => x.name.toLowerCase().includes(name));
 
     var json = JSON.stringify(filteredActors);
     res.setHeader('Content-Type', 'application/json');
