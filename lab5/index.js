@@ -6,8 +6,9 @@ let bodyparser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
 
+const filePath = './actors.json';
 
-//app.listen(3000, () => console.log('Server ready')) //this is the port to listen to
+//app.listen(3000, () => console.log('Server ready')) //for local debug
 app.listen(process.env.PORT || 3000);
 
 
@@ -15,7 +16,6 @@ app.use(bodyparser.urlencoded({extended: false}));
 app.use(bodyparser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-let actors = [];
 
 
 app.get('/', (req, res) => {
@@ -23,45 +23,111 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/getall', (req, res) => {
-    var json = JSON.stringify(actors);
-    res.setHeader('Content-Type', 'application/json');
-    res.end(json);
+/**
+ * Gets all actors from saved file.
+ */
+app.get('/getall', async function(req, res) {
+    try{
+        res.setHeader('Content-Type', 'application/json');
+
+        var actors = await getActorsFromFile(); //gets actors from json file
+        var json = JSON.stringify(actors);
+        res.setHeader('Content-Type', 'application/json');
+        res.end(json);
+    } catch(e){
+        res.end(e.message || e.toString());
+    }
 });
 
 
-app.get('/search/:value', (req, res) => {
-    let name = req.params.value;
+/**
+ * Returns filtered list of actors that match the input search string.
+ */
+app.get('/search/:value', async function(req, res) {
+    try{
+        let name = req.params.value;
 
-    var filteredActors = actors.filter(x => x.name.toLowerCase().includes(name));
+        var actors = await getActorsFromFile();
+        var filteredActors = actors.filter(x => x.name.toLowerCase().includes(name));
 
-    var json = JSON.stringify(filteredActors);
-    res.setHeader('Content-Type', 'application/json');
-    res.end(json);
+        var json = JSON.stringify(filteredActors);
+        res.setHeader('Content-Type', 'application/json');
+        res.end(json);
+    } catch(e){
+        res.end(e.message || e.toString());
+    }
 });
 
 
-app.post('/add', (req, res) => {
-    let name = req.body.name;
-    let description = req.body.desc;
-    let avatarImg = req.body.url;
+/**
+ * Adds new actor.
+ */
+app.post('/add', async function(req, res) {
+    try{
+        let name = req.body.name;
+        let description = req.body.desc;
+        let avatarImg = req.body.url;
 
-    //save to "db"
-    var id = generateId();
-    actors.push({ id, name, description, avatarImg });
+        var id = generateId();
 
-    res.sendStatus(204);
+        var actors = await getActorsFromFile();
+        actors.push({ id, name, description, avatarImg });
+
+        await saveActorsToFile(actors);
+        res.sendStatus(204);
+    } catch(e){
+        res.end(e.message || e.toString());
+    }
 });
 
 
-app.post('/delete', (req, res) => {
-    let id = req.body.idToDelete;
+/**
+ * Deletes an actor.
+ */
+app.post('/delete', async function(req, res) {
 
-    //save to "db"
-    actors = actors.filter(x => x.id != id);
+    try{
+        let id = req.body.idToDelete;
 
-    res.sendStatus(204);
+        var actors = await getActorsFromFile();
+        actors = actors.filter(x => x.id != id);
+        await saveActorsToFile(actors);
+
+        res.sendStatus(204);
+    } catch(e){
+        res.end(e.message || e.toString());
+    }
 });
+
+
+/**
+ * Writes to actors.json file. Will replace entire file on save.
+ * @param actors
+ * @returns {Promise<void>}
+ */
+async function saveActorsToFile(actors){
+    await fs.writeFile(filePath, JSON.stringify(actors), function (err) {
+        if (err) return console.log(err);
+    });
+}
+
+
+/**
+ * Gets the actors array from json file. If doesn't exist, makes a new one.
+ * @returns {Promise<*>}
+ */
+async function getActorsFromFile(){
+    try {
+        await fs.promises.access(filePath); //check if exists
+
+        var raw = await fs.readFileSync(filePath);
+        var actors = JSON.parse(raw);
+        return actors;
+    } catch (error) {
+        await saveActorsToFile([]); //creates a new file & saves empty array
+        return [];
+    }
+}
 
 
 /**
