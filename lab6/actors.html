@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Artist Directory
+    </title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="actors.css">
+	<script src="actors.js"></script>
+</head>
+
+<body onload="loadPage()">
+	
+	<div class="header">
+		<h2 id="title">Artist Directory</h2>
+		<input id="search-input" type="text"/>
+		<button class="btn" onclick="toggleInsert()">Add</button>
+		<button class="btn" onclick="search()">Search</button>
+	</div>
+
+	<div class="add-actor-section">
+		<span id="add-actor-error" style="display: none;">Error: Artist name and description must be < 40 characters.</span>
+		<form id="addActor" style="display: none;">
+			<input id="name" name="name" placeholder="Artist Name" type="text" required />
+			<br>
+			<input id="description" name="description" placeholder="About artist" type="text" required />
+			<br>
+			<input id="avatar" name="avatar" placeholder="Image url" type="text" required />
+			<br>
+			<button id="addActorBtn" class="btn" onclick="addActor()">Add</button>
+		</form>
+	</div>
+
+	<div class="flex-container" id="artist-table">
+		<!-- dynamically filled -->
+	</div>
+
+	<div id="empty-table">
+		<span>Oops, nothing found! <br>Try refining your search, or adding a new artist.</span>
+	</div>
+</body>
+</html>
