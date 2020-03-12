@@ -15,6 +15,30 @@ exports.getAllArtists = function(req,res,next) {
     });
 }
 
+
+
+exports.addArtist = function(req, res, next){
+    let artist = {
+        name: res.body.name,
+        description: res.body.description,
+        avatar: res.body.avatar
+    }
+    
+    let add = mod.addArtist(artist);
+
+    add.then((data) => {
+        console.log(data.rows);
+
+        //TODO need to recall getAll again
+        res.render('home', { 
+            artists: data.rows, 
+            artistsCSS: true,
+            pageTitle: 'Artist Directory', 
+            heading: 'Artist Directory' 
+        });
+    });
+}
+
 // exports.peopleAddForm = function(req,res,next) {
 //     res.render('peopleadd' ,{formsCSS: true});
 // }

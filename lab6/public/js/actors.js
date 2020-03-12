@@ -2,13 +2,13 @@ class Actor {
     id;
     name;
     description;
-    avatarImg;
+    avatar;
 
     constructor(id, name, descr, avatar) {
         this.id = id;
         this.name = name;
         this.description = descr;
-        this.avatarImg = avatar;
+        this.avatar = avatar;
     }
 }
 
@@ -133,9 +133,9 @@ function displayActors() {
         actor_div.setAttribute('id', actors[i].id);
         actor_div.className += " actor-flex-1 actor-element";
 
-        var avatarImg = document.createElement("img");
-        avatarImg.className += " actor-avatar";
-        avatarImg.src = actors[i].avatarImg;
+        var avatar = document.createElement("img");
+        avatar.className += " actor-avatar";
+        avatar.src = actors[i].avatar;
 
 
         var actor_name = document.createElement("span");
@@ -163,7 +163,7 @@ function displayActors() {
         delBtn.addEventListener("click", deleteArtist);
         del.appendChild(delBtn);
 
-        actor_div.appendChild(avatarImg);
+        actor_div.appendChild(avatar);
         actor_div.appendChild(actor_details);
         actor_div.appendChild(del);
         actor_list_tbl.appendChild(actor_div);
@@ -182,7 +182,7 @@ function toggleInsert() {
 
     if (x.style.display === "none") {
         x.style.display = "block";
-        generateAvatarImg(); //TODO this is for easier actor creation
+        generateAvatar(); //TODO this is for easier actor creation
     } else {
         x.style.display = "none";
         x.reset();
@@ -208,7 +208,7 @@ function showNoArtistsFoundMsg() {
  * Auto generates a random female or male avatar image.
  * This is just for easier test purposes.
  */
-function generateAvatarImg() {
+function generateAvatar() {
     var femUrl = "https://randomuser.me/api/portraits/med/women/";
     var maleUrl = "https://randomuser.me/api/portraits/med/men/";
 

@@ -5,7 +5,15 @@ let db = require('../db/db');
 // }
 
 function getAllArtists() {
-    return db.query('Select * from actors');
+    return db.query('SELECT * FROM actors');
+}
+
+
+function addArtist(artist) {
+    return db.query("INSERT INTO actors(name, description, avatar) VALUES (?, ?, ?);", 
+        artist.name, 
+        artist.description, 
+        artist.avatar);
 }
 
 // function getPeople(id) {
@@ -15,5 +23,6 @@ function getAllArtists() {
 module.exports = {
     // add : addPeople,
     getall : getAllArtists,
+    addArtist : addArtist,
     // getpeople: getPeople 
 }
