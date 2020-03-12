@@ -6,8 +6,8 @@
     </title>
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="actors.css">
-	<script src="actors.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/actors.css">
+	<script src="/js/actors.js"></script>
 </head>
 
 <body onload="loadPage()">
@@ -20,7 +20,7 @@
 	</div>
 
 	<div class="add-actor-section">
-		<span id="add-actor-error" style="display: none;">Error: Artist name and description must be < 40 characters.</span>
+		<span id="add-actor-error" style="display: none;">Error: Artist name and description must be less than 40 characters.</span>
 		<form id="addActor" style="display: none;">
 			<input id="name" name="name" placeholder="Artist Name" type="text" required />
 			<br>

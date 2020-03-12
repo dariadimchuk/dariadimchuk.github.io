@@ -1,7 +1,4 @@
 
-/* ----FLEXBOX---- */
-
-
 .flex-container, .actor-flex-1, #empty-table {
 	display: flex;
 }

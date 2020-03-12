@@ -1,5 +1,5 @@
 {
-  "name": "lab5",
+  "name": "lab6",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,6 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "handlebars": "^4.4.2",
+    "pg": "^7.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
   }
 }

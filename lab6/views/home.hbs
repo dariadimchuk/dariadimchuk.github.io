@@ -1,0 +1,41 @@
+<div class="header">
+    <h2 id="title">{{heading}}</h2>
+    <input id="search-input" type="text"/>
+    <button class="btn" onclick="toggleInsert()">Add</button>
+    <button class="btn" onclick="search()">Search</button>
+</div>
+
+<div class="add-actor-section">
+    <span id="add-actor-error" style="display: none;">Error: Artist name and description must be less than 40 characters.</span>
+    <form id="addActor" style="display: none;">
+        <input id="name" name="name" placeholder="Artist Name" type="text" required />
+        <br>
+        <input id="description" name="description" placeholder="About artist" type="text" required />
+        <br>
+        <input id="avatar" name="avatar" placeholder="Image url" type="text" required />
+        <br>
+        <button id="addActorBtn" class="btn" onclick="addActor()">Add</button>
+    </form>
+</div>
+
+
+<div class="flex-container" id="artist-table">
+    {{#each artists}}
+        <div id={{this.id}} class="actor-flex-1 actor-element">
+            <img class="actor-avatar" src={{this.avatarImg}}>
+            <div class="actor_details">
+                <span class="actor_name">{{this.name}}<br></span>
+                <span class="desc_of_actor">{{this.description}}</span></div>
+            <div class="delete">
+                <button value={{this.id}}>Delete</button>
+            </div>
+        </div>
+    {{/each}}
+</div>
+
+
+
+<div id="empty-table">
+    <span>Oops, nothing found! <br>Try refining your search, or adding a new artist.</span>
+</div>
+
