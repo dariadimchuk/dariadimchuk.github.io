@@ -44,7 +44,7 @@ body {
 
 .actor-element:hover{
 	background-color: #f7f7f7;
-	cursor: pointer;
+	/* cursor: pointer; */
 }
 
 
@@ -109,7 +109,8 @@ body {
 
 .delete button{
     background: #f02323;
-    color: white;
+	color: white;
+	cursor: pointer;
     border-radius: 10%;
     padding: 0.5rem 1rem;
     border: 1px solid transparent;
