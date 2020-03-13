@@ -31,7 +31,9 @@
                     <span class="actor_name">{{this.name}}<br></span>
                     <span class="desc_of_actor">{{this.description}}</span></div>
                 <div class="delete">
-                    <button value={{this.id}}>Delete</button>
+                    <form id="deleteActor" action="/delete/{{this.id}}" method="GET">
+                        <button value={{this.id}}>Delete</button>
+                    </form>
                 </div>
             </div>
         {{/each}}

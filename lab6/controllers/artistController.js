@@ -38,6 +38,20 @@ exports.addArtist = function(req, res, next){
     
 }
 
+
+exports.deleteArtist = function(req, res, next){
+    let id = req.params.id;
+    let del = mod.deleteArtist(id);
+
+    if(del){
+        del.then((data) => {
+            res.redirect(301, "/");
+        });
+    }
+}
+
+
+
 // exports.peopleAddForm = function(req,res,next) {
 //     res.render('peopleadd' ,{formsCSS: true});
 // }
