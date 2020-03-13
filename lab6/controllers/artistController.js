@@ -4,8 +4,6 @@ exports.getAllArtists = function(req,res,next) {
     let artists = mod.getall();
 
     artists.then((data) => {
-        console.log(data.rows);
-        
         res.render('home', { 
             artists: data.rows, 
             artistsCSS: true,
@@ -18,25 +16,26 @@ exports.getAllArtists = function(req,res,next) {
 
 
 exports.addArtist = function(req, res, next){
-    let artist = {
-        name: res.body.name,
-        description: res.body.description,
-        avatar: res.body.avatar
-    }
+    var url = req.body.avatar;
+    var na = req.body.name;
+    var descr = req.body.description;
+
+    var artist = {
+        name: na,
+        description: descr,
+        avatar: url
+    };
     
     let add = mod.addArtist(artist);
 
-    add.then((data) => {
-        console.log(data.rows);
-
-        //TODO need to recall getAll again
-        res.render('home', { 
-            artists: data.rows, 
-            artistsCSS: true,
-            pageTitle: 'Artist Directory', 
-            heading: 'Artist Directory' 
+    if(add){
+        add.then((data) => {
+            console.log(data.rows);
+    
+            res.redirect(301, "/");
         });
-    });
+    }
+    
 }
 
 // exports.peopleAddForm = function(req,res,next) {

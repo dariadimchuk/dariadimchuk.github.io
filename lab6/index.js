@@ -2,7 +2,7 @@ let express = require('express');
 let app = express();
 var http = require('http');
 let bodyparser = require('body-parser');
-let playerRoutes = require('./routes/artists');
+let routes = require('./routes/artists');
 const expressHbs = require('express-handlebars');
 const fs = require('fs');
 const path = require('path');
@@ -26,11 +26,12 @@ app.set('views', 'views');
 //     res.render('home', { pageTitle: 'Artist Directory', heading: 'Artist Directory'});
 // });
 
-app.use(playerRoutes);
-app.use(bodyparser.urlencoded({extended: false}));
+
 app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(routes);
 
 //app.listen(3000, () => console.log('Server ready')) //for local debug
 app.listen(process.env.PORT || 3000, () => console.log('Server ready @ port 3000'))
@@ -87,12 +88,12 @@ app.listen(process.env.PORT || 3000, () => console.log('Server ready @ port 3000
 //     try{
 //         let name = req.body.name;
 //         let description = req.body.desc;
-//         let avatarImg = req.body.url;
+//         let avatar = req.body.url;
 
 //         var id = generateId();
 
 //         var actors = await getActorsFromFile();
-//         actors.push({ id, name, description, avatarImg });
+//         actors.push({ id, name, description, avatar });
 
 //         await saveActorsToFile(actors);
 //         res.sendStatus(204);

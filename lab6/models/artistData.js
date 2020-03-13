@@ -10,10 +10,10 @@ function getAllArtists() {
 
 
 function addArtist(artist) {
-    return db.query("INSERT INTO actors(name, description, avatar) VALUES (?, ?, ?);", 
-        artist.name, 
-        artist.description, 
-        artist.avatar);
+    return db.query("INSERT INTO actors (name, description, avatar) VALUES ('" 
+        + artist.name + "', '" 
+        + artist.description + "', '" 
+        + artist.avatar + "')");
 }
 
 // function getPeople(id) {

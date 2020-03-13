@@ -7,15 +7,19 @@
 
 <div class="add-actor-section">
     <span id="add-actor-error" style="display: none;">Error: Artist name and description must be less than 40 characters.</span>
-    <form id="addActor" style="display: none;">
+    
+    
+    <form id="addActor" style="display: none;" action="/add" method="POST">
+    
         <input id="name" name="name" placeholder="Artist Name" type="text" required />
         <br>
         <input id="description" name="description" placeholder="About artist" type="text" required />
         <br>
         <input id="avatar" name="avatar" placeholder="Image url" type="text" required />
         <br>
-        <button id="addActorBtn" class="btn" onclick="addActor()">Add</button>
+        <button id="addActorBtn" class="btn" type="submit">Add</button>
     </form>
+
 </div>
 
 {{#if artists}}
