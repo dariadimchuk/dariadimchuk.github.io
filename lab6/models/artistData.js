@@ -15,12 +15,13 @@ function deleteArtist(id){
     return db.query("DELETE FROM actors WHERE id = '" + id + "';");
 }
 
-// function getPeople(id) {
-//     return db.query('Select * from people where id = ' + id);
-// }
+function search(name) {
+    return db.query("SELECT * FROM actors WHERE UPPER(name) LIKE UPPER('%" + name + "%');");
+}
 
 module.exports = {
     getall : getAllArtists,
     addArtist : addArtist,
     deleteArtist: deleteArtist,
+    search: search
 }

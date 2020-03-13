@@ -51,6 +51,23 @@ exports.deleteArtist = function(req, res, next){
 }
 
 
+exports.search = function(req, res, next){
+    let input = req.body.name;
+
+    let query = mod.search(input);
+    if(query){
+        query.then((data) => {
+            
+            //wipes out the input search text, which is confusing for user!!!!!!!
+            res.render('home', { 
+                artists: data.rows, 
+                artistsCSS: true,
+                pageTitle: 'Artist Directory', 
+                heading: 'Artist Directory' 
+            });
+        });
+    }
+}
 
 // exports.peopleAddForm = function(req,res,next) {
 //     res.render('peopleadd' ,{formsCSS: true});
