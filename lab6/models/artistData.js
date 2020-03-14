@@ -33,13 +33,21 @@ function authenticate(email, password){
 function savelogin(accountId){
     let date = new Date();
 
+    let str = date.toUTCString();
+
     //insert/replace login info (this should be called when user successfully logs in).
-    return db.query("INSERT INTO logins (id, date) VALUES ('" + accountId + "', '" + date + "') ON CONFLICT (id) DO NOTHING;");
+    return db.query("INSERT INTO logins (id, lastlogin) VALUES ('" + accountId + "', '" + str + "') "
+        + "ON CONFLICT (id) DO NOTHING;"); //overwrites duplicates
 }
 
 
 function checkLogin(accountId){
     return db.query("SELECT * FROM logins WHERE id = '" + accountId + "';");
+}
+
+
+function logout(accountId){
+    return db.query("DELETE FROM logins WHERE id = '" + accountId + "';");
 }
 
 
@@ -51,5 +59,6 @@ module.exports = {
     signup: signup,
     authenticate: authenticate,
     login: savelogin,
-    checkLogin: checkLogin
+    checkLogin: checkLogin,
+    logout: logout
 }

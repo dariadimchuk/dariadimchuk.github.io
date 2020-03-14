@@ -2,17 +2,22 @@ let mod = require('../models/artistData');
 //var passwordHash = require('password-hash');
 
 exports.signup = function(req,res,next) {
-    console.log("signup page method");
+    console.log("signup page method\n");
 
     let email = req.body.email;
     let password = req.body.pass;
 
     //let hashedPassword = passwordHash.generate(password);
 
-    mod.signup(email, password);
-    mod.then((data) => {
+    let signupres = mod.signup(email, password);
+    signupres.then((data) => {
         let accId = data.rows.id;
         let login = mod.login(accId); //save login date/time
+
+
+
+        //localStorage.setItem("currentuser", JSON.stringify(accId));
+        //console.log("\n\nUPDATED LOCAL STORANGE!!!\n\n")
 
         res.redirect(301, "/home");
     });
@@ -21,26 +26,65 @@ exports.signup = function(req,res,next) {
 exports.login = function(req,res,next) {
     let email = req.body.email;
     let password = req.body.pass;
-
     //let hashedPassword = passwordHash.generate(password);
 
-    mod.authenticate(email, password);
-    mod.then((data) => {
-        let accId = data.rows.id;
-        let login = mod.login(accId); //save login date/time
+    let auth = mod.authenticate(email, password);
+    auth.then((data) => {
+        let success = data.rows.length > 0;
+        console.log("authenticated\n");
 
-        res.redirect(301, "/home");
+        if(success){
+            let accId = data.rows[0].id;
+            let login = mod.login(accId); //save login date/time
+            console.log("login date saved with " +  accId + "\n");
+
+            //localStorage.setItem("currentuser", JSON.stringify(accId));
+            //console.log("\n\nUPDATED LOCAL STORANGE!!!\n\n")
+
+            res.redirect(301, "/home");
+        }
+    });
+}
+
+
+
+exports.logout = function(req,res,next) {
+    console.log("logout\n");
+    let id = req.params.id;
+    let logout = mod.logout(id);
+    
+    logout.then((data) => {
+        res.redirect(301, "/");
     });
 }
 
 
 exports.loadPage = function(req, res, next){
-    console.log("hello im loading page");
     //res.redirect(301, "/signup");
 
-    res.render('initial', {
-        initialCSS: true
-    });
+    
+    //TODO IMPORTANT: SAVE THE ACCID OF LAST LOGIN IN LOCAL STORAGE OF BROWSER. THEN PASS THAT TO CHECKLOGIN.
+    //if they do incognito, or clear cache, then they just get the login page! :)
+    
+    
+    //let id = JSON.parse(localStorage.getItem("currentuser"));
+
+    // if(id){
+    //     let isLoggedIn = mod.checkLogin();
+
+    //     isLoggedIn.then((data) => {
+    //         console.log(data.rows);    
+    //     });
+
+    // } else{
+        res.render('initial', {
+            title: "Artist Directory",
+            initialCSS: true
+        });
+    // }
+    
+
+    
     //check if logged in
     //if logged in
     //load homepage

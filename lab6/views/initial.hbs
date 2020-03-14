@@ -1,5 +1,8 @@
 <div>
-    <form id="signup" action="/signup" method="POST">
+    <h1>{{title}}</h1>
+
+    <h2>Sign up for Artist Directory!</h2>
+    <form id="signup" action="/signup" method="POST" onsubmit="localStorage.setItem('currendemail', JSON.stringify(email));">
         <label for="email">Email</label>
         <input id="email" name="email" type="text"/>
         
@@ -9,8 +12,9 @@
         <button class="btn" type="submit">Signup</button>
     </form>
 
-
-    <form id="login" action="/login" method="POST">
+    <br>
+    <h2>Already have an account? Sign in!</h2>
+    <form id="login" action="/login" method="POST" onsubmit="localStorage.setItem('currendemail', JSON.stringify(this.elements.email.value));">
         <label for="email">Email</label>
         <input id="email" name="email" type="text"/> 
         
