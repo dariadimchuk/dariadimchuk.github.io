@@ -19,9 +19,37 @@ function search(name) {
     return db.query("SELECT * FROM actors WHERE UPPER(name) LIKE UPPER('%" + name + "%');");
 }
 
+
+function signup(email, password){
+    return db.query("INSERT INTO accounts (email, password) VALUES ('" + email + "', '" + password + "')");
+}
+
+function authenticate(email, password){
+    return db.query("SELECT * FROM accounts WHERE email = '" + email + "' AND password = '" + password + "';");
+
+    //maybe move savelogin content into here??
+}
+
+function savelogin(accountId){
+    let date = new Date();
+
+    //insert/replace login info (this should be called when user successfully logs in).
+    return db.query("INSERT INTO logins (id, date) VALUES ('" + accountId + "', '" + date + "') ON CONFLICT (id) DO NOTHING;");
+}
+
+
+function checkLogin(accountId){
+    return db.query("SELECT * FROM logins WHERE id = '" + accountId + "';");
+}
+
+
 module.exports = {
     getall : getAllArtists,
     addArtist : addArtist,
     deleteArtist: deleteArtist,
-    search: search
+    search: search,
+    signup: signup,
+    authenticate: authenticate,
+    login: savelogin,
+    checkLogin: checkLogin
 }

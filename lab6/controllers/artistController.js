@@ -1,4 +1,54 @@
 let mod = require('../models/artistData');
+//var passwordHash = require('password-hash');
+
+exports.signup = function(req,res,next) {
+    console.log("signup page method");
+
+    let email = req.body.email;
+    let password = req.body.pass;
+
+    //let hashedPassword = passwordHash.generate(password);
+
+    mod.signup(email, password);
+    mod.then((data) => {
+        let accId = data.rows.id;
+        let login = mod.login(accId); //save login date/time
+
+        res.redirect(301, "/home");
+    });
+}
+
+exports.login = function(req,res,next) {
+    let email = req.body.email;
+    let password = req.body.pass;
+
+    //let hashedPassword = passwordHash.generate(password);
+
+    mod.authenticate(email, password);
+    mod.then((data) => {
+        let accId = data.rows.id;
+        let login = mod.login(accId); //save login date/time
+
+        res.redirect(301, "/home");
+    });
+}
+
+
+exports.loadPage = function(req, res, next){
+    console.log("hello im loading page");
+    //res.redirect(301, "/signup");
+
+    res.render('initial', {
+        initialCSS: true
+    });
+    //check if logged in
+    //if logged in
+    //load homepage
+
+    //if its been over 30min since last login (or no login by this acc ID,) then load login page
+}
+
+
 
 exports.getAllArtists = function(req,res,next) {
     let artists = mod.getall();
@@ -28,13 +78,9 @@ exports.addArtist = function(req, res, next){
     
     let add = mod.addArtist(artist);
 
-    if(add){
-        add.then((data) => {
-            console.log(data.rows);
-    
-            res.redirect(301, "/");
-        });
-    }
+    add.then((data) => {
+        res.redirect(301, "/home");
+    });
     
 }
 
@@ -45,7 +91,7 @@ exports.deleteArtist = function(req, res, next){
 
     if(del){
         del.then((data) => {
-            res.redirect(301, "/");
+            res.redirect(301, "/home");
         });
     }
 }
