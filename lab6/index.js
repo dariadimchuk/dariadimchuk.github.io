@@ -16,7 +16,7 @@ app.engine(
       defaultLayout: 'main-layout',
       extname: 'hbs'
     })
-  );
+);
 
 app.set('view engine', 'hbs');
 

@@ -11,6 +11,6 @@ router.get('/delete/:id', artistController.deleteArtist);
 router.post('/search', artistController.search);
 
 router.post('/login', artistController.login);
-router.post('/logout', artistController.logout);
+router.get('/logout', artistController.logout);
 
 module.exports = router;

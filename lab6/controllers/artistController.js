@@ -18,19 +18,15 @@ exports.login = function(req,res,next) {
 
 
 exports.logout = function(req,res,next) {
-    let id = req.params.id;
-    let logout = mod.logout(id);
-    
-    logout.then((data) => {
-        res.redirect(301, "/");
-    });
+    res.redirect(301, "/");
 }
 
 
 exports.loadPage = function(req, res, next){
     res.render('initial', {
         title: "Artist Directory",
-        initialCSS: true
+        initialCSS: true,
+        layout: 'login-layout'
     });
 }
 
