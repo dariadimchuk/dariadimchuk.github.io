@@ -1,20 +1,8 @@
 <div>
     <h1>{{title}}</h1>
-
-    <h2>Sign up for Artist Directory!</h2>
-    <form id="signup" action="/signup" method="POST" onsubmit="localStorage.setItem('currendemail', JSON.stringify(email));">
-        <label for="email">Email</label>
-        <input id="email" name="email" type="text"/>
-        
-        <label for="pass">Password</label>
-        <input id="password" name="pass" type="text"/>
-        
-        <button class="btn" type="submit">Signup</button>
-    </form>
-
-    <br>
-    <h2>Already have an account? Sign in!</h2>
-    <form id="login" action="/login" method="POST" onsubmit="localStorage.setItem('currendemail', JSON.stringify(this.elements.email.value));">
+    
+    <h2>Sign In:</h2>
+    <form id="login" action="/login" method="POST">
         <label for="email">Email</label>
         <input id="email" name="email" type="text"/> 
         

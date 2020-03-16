@@ -11,20 +11,24 @@
         <link rel="stylesheet" type="text/css" href="/css/actors.css">
 	    <script src="/js/actors.js"></script>
     {{/if}}
-    {{#if formsCSS}}
-        <link href='/css/forms.css' rel='stylesheet'/>
+
+    {{#if initialCSS}}
+        <link rel="stylesheet" type="text/css" href="/css/initial.css">
     {{/if}}
 </head>
 
 <body>
-    <header class="main-header">
-        <nav class="main-header__nav">
-            <ul class="main-header__item-list">
-                <li class="main-header__item"><a href="/home">Home</a></li>
-                <li class="main-header__item"><a href="/logout">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
+
+    {{#unless initialCSS}}
+        <header class="top-header">
+            <nav class="nav">
+                <form class="logout-form" action="/logout" method="POST">
+                    <button type="submit" name="id" value="1" class="logout">Logout</button>
+                </form>
+            </nav>
+        </header>
+    {{/unless}}
+
     {{{ body }}}
 </body>
 </html>
