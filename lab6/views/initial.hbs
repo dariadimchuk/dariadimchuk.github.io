@@ -1,15 +1,19 @@
 <div>
-    <h1>{{title}}</h1>
+    <h2 id="login-header">{{header}}</h2>
     
-    <h2>Sign In:</h2>
     <form id="login" action="/login" method="POST">
-        <label for="email">Email</label>
-        <input id="email" name="email" type="text"/> 
         
-        <label for="pass">Password</label>
-        <input id="password" name="pass" type="text"/>
+        <img id="profile-img" src="../public/resources/img/profile.png" />
+        <input id="username" name="username" placeholder="username" type="text"/> 
         
-        <button class="btn" type="submit">Login</button>
+        <br />
+
+        <img id="password-img" src="../public/resources/img/lock.png" />
+        <input id="password" name="pass" placeholder="password" type="password"/>
+        
+        <br />
+
+        <button class="btn" id="login-btn" type="submit">Login</button>
     </form>
 
 </div>

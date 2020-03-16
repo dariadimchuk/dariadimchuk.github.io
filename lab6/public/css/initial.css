@@ -1,0 +1,19 @@
+html{
+    background-color: #fffbee;
+}
+
+#login-header{
+    font-family: 'Ubuntu', sans-serif;
+    color: grey;
+    font-size: 1rem;
+}
+
+
+#login-btn{
+    background-color: #ffdb43;
+    border: 1px solid #ffd834;
+    padding: 5px 4rem;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}

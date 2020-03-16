@@ -2,10 +2,10 @@ let mod = require('../models/artistData');
 
 
 exports.login = function(req,res,next) {
-    let email = req.body.email;
+    let username = req.body.username;
     let password = req.body.pass;
 
-    let auth = mod.authenticate(email, password);
+    let auth = mod.authenticate(username, password);
     auth.then((data) => {
         let success = data.rows.length > 0;
 
@@ -24,8 +24,8 @@ exports.logout = function(req,res,next) {
 
 exports.loadPage = function(req, res, next){
     res.render('initial', {
-        title: "Artist Directory",
-        initialCSS: true,
+        pageTitle: "Artist Directory",
+        header: "Member Login",
         layout: 'login-layout'
     });
 }
