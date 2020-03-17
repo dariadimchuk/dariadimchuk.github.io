@@ -2,7 +2,7 @@ let mod = require('../models/artistData');
 
 
 exports.loadPage = function(req, res, next){
-    res.render('initial', {
+    res.render('login', {
         pageTitle: "Artist Directory",
         header: "Member Login",
         loginError: false,
@@ -23,7 +23,7 @@ exports.login = function(req,res,next) {
         if(success){
             res.redirect(301, "/home");
         } else{
-            res.render('initial', {
+            res.render('login', {
                 pageTitle: "Artist Directory",
                 header: "Member Login",
                 loginError: true,
@@ -34,7 +34,4 @@ exports.login = function(req,res,next) {
 }
 
 
-exports.logout = function(req,res,next) {
-    res.redirect(301, "/");
-}
 
