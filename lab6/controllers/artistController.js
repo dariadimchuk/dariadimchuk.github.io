@@ -63,3 +63,9 @@ exports.search = function(req, res, next){
         });
     }
 }
+
+
+
+exports.logout = function(req,res,next) {
+    res.redirect(301, "/");
+}
