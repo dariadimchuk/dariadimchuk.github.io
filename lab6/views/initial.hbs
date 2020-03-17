@@ -1,6 +1,10 @@
 <div id="login-body">
     <h2 id="login-header">{{header}}</h2>
     
+    {{#if loginError}}
+        <div id="login-error">Error: username or password incorrect.</span>
+    {{/if}}
+
     <form id="login" action="/login" method="POST">
         
         <div class="input-row">
