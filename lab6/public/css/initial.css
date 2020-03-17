@@ -6,6 +6,7 @@ html{
     font-family: 'Ubuntu', sans-serif;
     color: grey;
     font-size: 1rem;
+    margin-bottom: 40px;
 }
 
 
@@ -16,4 +17,33 @@ html{
     color: white;
     font-weight: bold;
     font-size: 1.2rem;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#login-body{
+    margin: 10% 40%;
+    width: 15rem;
+}
+
+.icon {
+    width: 8px;
+    color: #999999;
+    margin-right: 7px;
+}
+
+
+.input-field{
+    font-style: italic;
+    padding: 6px;
+    margin: 0 5px;
+    width: 100%;
+}
+
+
+.input-row{
+    display: flex;
+    width: 100%;
+    align-items: center;
 }

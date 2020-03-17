@@ -1,15 +1,17 @@
-<div>
+<div id="login-body">
     <h2 id="login-header">{{header}}</h2>
     
     <form id="login" action="/login" method="POST">
         
-        <img id="profile-img" src="../public/resources/img/profile.png" />
-        <input id="username" name="username" placeholder="username" type="text"/> 
-        
-        <br />
+        <div class="input-row">
+            <i class="fa fa-user icon"></i>
+            <input class="input-field" id="username" name="username" placeholder="username" type="text"/> 
+        </div>
 
-        <img id="password-img" src="../public/resources/img/lock.png" />
-        <input id="password" name="pass" placeholder="password" type="password"/>
+        <div class="input-row">
+            <i class="fa fa-lock icon"></i>
+            <input class="input-field" id="password" name="pass" placeholder="password" type="password"/>
+        </div>        
         
         <br />
 
